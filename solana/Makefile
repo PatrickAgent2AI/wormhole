@@ -30,14 +30,15 @@ token_bridge_AUTHORITY_solana_devnet=6sbzC1eH4FTujJXWj51eQe25cYvr4xfXbJ1vAj7j2k5
 nft_bridge_ADDRESS_solana_devnet=NFTWqJR8YnRVqPDvTJrYuLrQDitTG5AScqbeghi4zSA
 nft_bridge_AUTHORITY_solana_devnet=6sbzC1eH4FTujJXWj51eQe25cYvr4xfXbJ1vAj7j2k5J
 
-# Fogo SVM addresses
+# Fogo SVM addresses (配置为 1024Chain)
 # -------------------
 
-# Testnet
-bridge_ADDRESS_fogo_testnet=BhnQyKoQQgpuRTRo6D8Emz93PvXCYfVgHhnrR4T3qhw4
-bridge_AUTHORITY_fogo_testnet=34NzRtyigDRthGuWTCcaVRN6sHjkJc86fFNkqjvtghXs
-token_bridge_ADDRESS_fogo_testnet=78HdStBqCMioGii9D8mF3zQaWDqDZBQWTUwjjpdmbJKX
-token_bridge_AUTHORITY_fogo_testnet=CDZR3RgCs21mJS2uYKFmof24iiryxJAb8R2Wk9Rgg3Pw
+# Testnet (1024Chain 测试网)
+# 注意：以下地址需要在首次部署后填入，使用你的部署钱包公钥作为 AUTHORITY
+bridge_ADDRESS_fogo_testnet=2jBY6fEPcN5rhgMXzQgg5JQcsg8Sp38ud4F3N2vUyUsL
+bridge_AUTHORITY_fogo_testnet=Bya3mRSGUzTG5qCkzmQhmXQu8bpQbpW3FjbSDpByHFce
+token_bridge_ADDRESS_fogo_testnet=HssYhwpJ39PivzotU579iTSaGggEyUU26pVWsxALvygy
+token_bridge_AUTHORITY_fogo_testnet=Bya3mRSGUzTG5qCkzmQhmXQu8bpQbpW3FjbSDpByHFce
 
 # Mainnet
 bridge_ADDRESS_fogo_mainnet=worm2mrQkG1B1KTz37erMfWN8anHkSK24nzca7UD8BB
@@ -45,11 +46,9 @@ bridge_AUTHORITY_fogo_mainnet=CAb6rWkJAMMX4feJQgJZvBg2sK5Z5Tn2i48njRhSL9sw
 token_bridge_ADDRESS_fogo_mainnet=wormQuCVWSSmPdjVmEzAWxAXViVyTSWnLyhff5hVYGS
 token_bridge_AUTHORITY_fogo_mainnet=BAaVJ8fzpw8WJJqER9LK5ezTvxmG5VvFRgAWh21jJchz
 
-# Fogo specific RPC URLs.
-# for testnet we use the alt endpoint because of solana-cli issues with certs
-# at the time of writing.
+# Fogo specific RPC URLs (配置为 1024Chain)
 FOGO_RPC_URL_MAINNET=https://mainnet.fogo.io
-FOGO_RPC_URL_TESTNET=https://testnet-alt.fogo.io
+FOGO_RPC_URL_TESTNET=https://testnet-rpc.1024chain.com/rpc/
 
 SOURCE_FILES:=$(shell find . -name "*.rs" -or -name "*.lock" -or -name "*.toml" | grep -v "target") Dockerfile
 
