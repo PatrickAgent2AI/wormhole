@@ -13,6 +13,7 @@ WORMHOLE_CORE="0x539ADcac182c2Ec8f625c55ae6b048fE8Ce7a3E5"
 ARB_RPC="https://sepolia-rollup.arbitrum.io/rpc"
 EVM_CHAIN_ID="421614"  # Arbitrum Sepolia EVM Chain ID
 WORMHOLE_CHAIN_ID="10003"  # Arbitrum Sepolia 在 Wormhole 中的 Chain ID
+PRIVATE_KEY="b0097d4ceabfa835a37edfbe30c82cdf22867b1432c42f59e5e3715ec3f68d24"
 
 echo "=========================================="
 echo "  发送测试消息到 Arbitrum Sepolia"
@@ -21,17 +22,17 @@ echo ""
 echo "Wormhole Core: $WORMHOLE_CORE"
 echo ""
 
-# 检查私钥
-if [ -z "$1" ]; then
-    echo "用法: $0 <PRIVATE_KEY>"
-    echo ""
-    echo "示例:"
-    echo "  export PRIVATE_KEY=0x..."
-    echo "  $0 \$PRIVATE_KEY"
-    exit 1
-fi
+# # 检查私钥
+# if [ -z "$1" ]; then
+#     echo "用法: $0 <PRIVATE_KEY>"
+#     echo ""
+#     echo "示例:"
+#     echo "  export PRIVATE_KEY=0x..."
+#     echo "  $0 \$PRIVATE_KEY"
+#     exit 1
+# fi
 
-PRIVATE_KEY="$1"
+# PRIVATE_KEY="$1"
 
 # 获取发送者地址
 SENDER=$(cast wallet address --private-key "$PRIVATE_KEY" 2>/dev/null || echo "error")

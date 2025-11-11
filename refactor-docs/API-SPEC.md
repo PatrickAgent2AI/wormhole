@@ -624,7 +624,7 @@ guardiand admin dump-vaa-by-message-id \
 # 示例：查询 Arbitrum Sepolia 的 VAA
 guardiand admin dump-vaa-by-message-id \
   --socket /tmp/sockets/admin.sock \
-  10003/0x539ADcac182c2Ec8f625c55ae6b048fE8Ce7a3E5/1
+  10003/0x6b9C8671cdDC8dEab9c719bB87cBd3e782bA6a35/1
 ```
 
 #### Guardian 健康检查 API

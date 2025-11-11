@@ -14,7 +14,9 @@ import {
 import { rootLogger } from "./log";
 import { ethers } from "ethers";
 
-const SCRIPTS_DIR = "../../../ethereum/ts-scripts/relayer";
+const SCRIPTS_DIR = process.env.CONTRACTS_JSON_PATH 
+  ? "" 
+  : "../../../ethereum/ts-scripts/relayer";
 
 type Opts = {
   flag: Flag;
@@ -108,10 +110,13 @@ const defaults: { [key in Flag]: GRRelayerAppConfig } = {
     name: "GenericRelayer",
     logLevel: "debug",
     logFormat: "text",
-    spyEndpoint: "localhost:7073",
-    wormholeRpcs: ["https://wormhole-v2-testnet-api.certus.one"],
-    fetchSourceTxhash: true,
-    redis: { host: "localhost", port: 6379 },
+    spyEndpoint: "localhost:7072",  // 使用本地 Spy 端口
+    wormholeRpcs: ["http://localhost:7071"],  // 使用本地 Guardian REST API
+    fetchSourceTxhash: false,  // 本地不需要获取源交易
+    redis: { 
+      host: process.env.REDIS_HOST || "localhost",  // 支持环境变量覆盖
+      port: parseInt(process.env.REDIS_PORT || "6379") 
+    },
   },
   [Flag.Mainnet]: {} as any,
 };
@@ -209,6 +214,14 @@ function privateKeys(contracts: ContractsJson): {
   [k in Partial<EVMChainId>]: string[];
 } {
   const chainIds = new Set(contracts.wormholeRelayers.map((r) => r.chainId));
+  
+  // 过滤掉不支持的链（wallet-monitor 不支持的链）
+  // Base testnet (chainId 30) 在 wallet-monitor 中不支持
+  const unsupportedChains = [30]; // Base
+  const supportedChainIds = Array.from(chainIds).filter(
+    (id) => !unsupportedChains.includes(id)
+  );
+  
   let privateKeysArray = [] as string[];
   if (process.env.EVM_PRIVATE_KEYS) {
     privateKeysArray = JSON.parse(process.env.EVM_PRIVATE_KEYS);
@@ -228,7 +241,7 @@ function privateKeys(contracts: ContractsJson): {
     ];
   }
   const privateKeys = {} as Record<EVMChainId, string[]>;
-  for (const chainId of chainIds) {
+  for (const chainId of supportedChainIds) {
     privateKeys[chainId] = privateKeysArray;
   }
   return privateKeys;
